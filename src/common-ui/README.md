@@ -12,3 +12,8 @@ Vue.use(commonUI)
 
 ## babel.config.js添加配置
 sourceType: 'unambiguous'
+
+## 发布步骤
+1.cd common-ui目录
+2.npm addUser wanghao7717
+3.npm publish
