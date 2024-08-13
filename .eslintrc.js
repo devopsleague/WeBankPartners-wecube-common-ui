@@ -20,6 +20,6 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'vue/no-parsing-error': [2, { 'x-invalid-end-tag': false }],
     'vue/no-mutating-props': 'off',
-    'space-before-function-paren': ['error', 'always']
+    'space-before-function-paren': 'off'
   }
 }
