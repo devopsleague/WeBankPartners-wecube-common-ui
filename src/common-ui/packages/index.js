@@ -1,12 +1,14 @@
 /**
  * 统一导出组件
  */
-import BaseSearch from './Search'
-import BaseScrollTag from './ScrollTag'
+import BaseSearch from './Search' // 搜索组件
+import BaseScrollTag from './ScrollTag' // 区域可滚动组件
+import BaseMenu from './Menu' // 侧边栏组件
+import BaseHeaderTitle from './BaseHeaderTitle' // 标题组件
 import './common.less'
 
 // 组件集合用于遍历
-const components = [BaseSearch, BaseScrollTag]
+const components = [BaseSearch, BaseScrollTag, BaseMenu, BaseHeaderTitle]
 
 // 定义install方法
 const install = function (Vue) {
@@ -23,5 +25,7 @@ if (typeof window !== "undefined" && window.Vue) {
 export default {
   install,
   BaseSearch,
-  BaseScrollTag
+  BaseScrollTag,
+  BaseMenu,
+  BaseHeaderTitle
 }
