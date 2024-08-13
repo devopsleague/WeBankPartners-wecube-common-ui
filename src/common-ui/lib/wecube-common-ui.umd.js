@@ -2126,16 +2126,16 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-;// CONCATENATED MODULE: ./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/common-ui/packages/Search/index.vue?vue&type=template&id=366dc988
+;// CONCATENATED MODULE: ./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/common-ui/packages/Search/index.vue?vue&type=template&id=9ba63a6a
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
-    staticClass: "taskman-base-search"
+    staticClass: "common-base-search"
   }, [_c('div', {
-    staticClass: "taskman-base-search-form",
+    staticClass: "platform-base-search-form",
     style: {
-      maxHeight: _vm.expand ? '200px' : '45px'
+      maxHeight: _vm.expand ? '200px' : '40px'
     }
   }, [_c('Form', {
     attrs: {
@@ -2143,7 +2143,7 @@ var render = function render() {
       "model": _vm.value,
       "label-position": "right"
     }
-  }, [_vm._l(_vm.configList, function (i, index) {
+  }, [_vm._t("prepend"), _vm._l(_vm.options, function (i, index) {
     return [!i.hidden ? _c('FormItem', {
       key: index,
       attrs: {
@@ -2156,11 +2156,14 @@ var render = function render() {
       }
     }, [i.label ? _c('span', [_vm._v(_vm._s(i.label) + "：")]) : _vm._e(), i.component === 'input' ? _c('Input', {
       style: {
-        width: i.width || 200 + 'px'
+        width: i.width || 195 + 'px'
       },
       attrs: {
         "placeholder": i.placeholder,
         "clearable": ""
+      },
+      on: {
+        "on-change": _vm.handleInputChange
       },
       model: {
         value: _vm.value[i.key],
@@ -2192,15 +2195,14 @@ var render = function render() {
         },
         expression: "i.nullType"
       }
-    }, [_c('Option', {
-      attrs: {
-        "value": "yes"
-      }
-    }, [_vm._v(_vm._s(_vm.$t('tw_empty_search')))]), _c('Option', {
-      attrs: {
-        "value": "no"
-      }
-    }, [_vm._v(_vm._s(_vm.$t('tw_normal_search')))])], 1), i.nullType === 'no' ? _c('Input', {
+    }, [_vm._l(i.list, function (j, idx) {
+      return [_c('Option', {
+        key: idx,
+        attrs: {
+          "value": j.value
+        }
+      }, [_vm._v(_vm._s(j.label))])];
+    })], 2), i.nullType === 'no' ? _c('Input', {
       style: {
         width: 200 + 'px'
       },
@@ -2235,6 +2237,44 @@ var render = function render() {
         "filterable": i.filterable || true,
         "max-tag-count": 1
       },
+      on: {
+        "on-change": function ($event) {
+          return _vm.$emit('search');
+        }
+      },
+      model: {
+        value: _vm.value[i.key],
+        callback: function ($$v) {
+          _vm.$set(_vm.value, i.key, $$v);
+        },
+        expression: "value[i.key]"
+      }
+    }, [_vm._l(i.list, function (j, idx) {
+      return [_c('Option', {
+        key: idx,
+        attrs: {
+          "value": j.value
+        }
+      }, [_vm._v(_vm._s(j.label))])];
+    })], 2) : i.component === 'remote-select' ? _c('Select', {
+      style: {
+        width: i.width || 200 + 'px'
+      },
+      attrs: {
+        "placeholder": i.placeholder,
+        "clearable": "",
+        "multiple": i.multiple || false,
+        "filterable": i.filterable || true,
+        "max-tag-count": 1
+      },
+      on: {
+        "on-open-change": function ($event) {
+          return _vm.getRemoteData(i);
+        },
+        "on-change": function ($event) {
+          return _vm.$emit('search');
+        }
+      },
       model: {
         value: _vm.value[i.key],
         callback: function ($$v) {
@@ -2260,6 +2300,11 @@ var render = function render() {
         "filterable": i.filterable || true,
         "max-tag-count": 1
       },
+      on: {
+        "on-change": function ($event) {
+          return _vm.$emit('search');
+        }
+      },
       model: {
         value: _vm.value[i.key],
         callback: function ($$v) {
@@ -2283,20 +2328,13 @@ var render = function render() {
           borderRadius: '4px'
         }
       }, [_vm._v(" " + _vm._s(j.label) + " ")])])];
-    })], 2) : i.component === 'remote-select' ? _c('Select', {
-      style: {
-        width: i.width || 200 + 'px'
-      },
-      attrs: {
-        "placeholder": i.placeholder,
-        "clearable": "",
-        "multiple": i.multiple || false,
-        "filterable": i.filterable || true,
-        "max-tag-count": 1
+    })], 2) : i.component === 'switch' ? _c('i-Switch', {
+      staticStyle: {
+        "margin-right": "5px"
       },
       on: {
-        "on-open-change": function ($event) {
-          return _vm.getRemoteData(i);
+        "on-change": function ($event) {
+          return _vm.$emit('search');
         }
       },
       model: {
@@ -2306,19 +2344,18 @@ var render = function render() {
         },
         expression: "value[i.key]"
       }
-    }, [_vm._l(i.list, function (j, idx) {
-      return [_c('Option', {
-        key: idx,
-        attrs: {
-          "value": j.value
-        }
-      }, [_vm._v(_vm._s(j.label))])];
-    })], 2) : i.component === 'radio-group' ? _c('RadioGroup', {
+    }) : i.component === 'radio-group' ? _c('RadioGroup', {
       staticStyle: {
-        "margin-right": "32px"
+        "margin-right": "5px"
+      },
+      attrs: {
+        "type": "button",
+        "button-style": "solid"
       },
       on: {
-        "on-change": _vm.handleSearch
+        "on-change": function ($event) {
+          return _vm.$emit('search');
+        }
       },
       model: {
         value: _vm.value[i.key],
@@ -2347,7 +2384,7 @@ var render = function render() {
       },
       on: {
         "on-change": function ($event) {
-          return _vm.handleDateTypeChange(i.key, i.dateType);
+          return _vm.handleDateTypeChange(i.key, i.dateType, i.dateRange);
         }
       },
       model: {
@@ -2357,11 +2394,11 @@ var render = function render() {
         },
         expression: "i.dateType"
       }
-    }, _vm._l(_vm.dateTypeList, function (j, idx) {
+    }, _vm._l(i.dateRange, function (j, idx) {
       return _c('Radio', {
         key: idx,
         attrs: {
-          "label": j.value,
+          "label": j.dateType,
           "border": ""
         }
       }, [_vm._v(_vm._s(j.label))]);
@@ -2372,6 +2409,7 @@ var render = function render() {
       attrs: {
         "value": _vm.value[i.key],
         "type": "daterange",
+        "split-panels": "",
         "placement": "bottom-end",
         "format": "yyyy-MM-dd",
         "placeholder": i.label
@@ -2392,12 +2430,12 @@ var render = function render() {
       on: {
         "click": function ($event) {
           i.dateType = 1;
-          _vm.handleDateTypeChange(i.key, 1);
+          _vm.handleDateTypeChange(i.key, 1, i.dateRange);
         }
       }
     })], 1)], 1) : _vm._e()], 1)]) : _vm._e()];
-  })], 2)], 1), _c('div', {
-    staticClass: "taskman-base-search-button"
+  })], 2)], 1), _vm.showBtn ? _c('div', {
+    staticClass: "platform-base-search-button"
   }, [_c('Icon', {
     directives: [{
       name: "show",
@@ -2454,7 +2492,7 @@ var render = function render() {
     on: {
       "click": _vm.handleReset
     }
-  }, [_vm._v(_vm._s(_vm.$t('reset')))])], 1)]);
+  }, [_vm._v(_vm._s(_vm.$t('reset')))])], 1) : _vm._e()]);
 };
 var staticRenderFns = [];
 
@@ -2462,12 +2500,51 @@ var staticRenderFns = [];
 var dayjs_min = __webpack_require__(3110);
 var dayjs_min_default = /*#__PURE__*/__webpack_require__.n(dayjs_min);
 ;// CONCATENATED MODULE: ./src/util/index.js
+// 防抖函数
+const debounce1 = (fn, delay) => {
+  let timer = null;
+  const that = undefined;
+  return (...args) => {
+    timer && clearTimeout(timer);
+    timer = setTimeout(() => {
+      fn.apply(that, args);
+    }, delay);
+  };
+};
+function debounce(fn, delay = 500) {
+  let timer = null;
+  return function () {
+    const args = arguments;
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(() => {
+      fn.apply(this, [...args]);
+    }, delay);
+  };
+}
+
+// 截流函数
+const throttle = (fn, delay) => {
+  let timer = null;
+  const that = undefined;
+  return args => {
+    if (timer) {
+      return;
+    }
+    timer = setTimeout(() => {
+      fn.apply(that, args);
+      timer = null;
+    }, delay);
+  };
+};
+
 // 深拷贝
 const deepClone = obj => {
-  let objClone = Array.isArray(obj) ? [] : {};
+  const objClone = Array.isArray(obj) ? [] : {};
   if (obj && typeof obj === 'object') {
-    for (let key in obj) {
-      if (obj.hasOwnProperty(key)) {
+    for (const key in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
         if (obj[key] && typeof obj[key] === 'object') {
           objClone[key] = deepClone(obj[key]);
         } else {
@@ -2491,6 +2568,14 @@ const deepClone = obj => {
     options: {
       type: Array,
       default: () => []
+    },
+    showExpand: {
+      type: Boolean,
+      default: true
+    },
+    showBtn: {
+      type: Boolean,
+      default: true
     }
   },
   computed: {
@@ -2498,103 +2583,107 @@ const deepClone = obj => {
       return this.value;
     }
   },
-  watch: {
-    options: {
-      handler(val) {
-        if (val && val.length) {
-          this.configList = val;
-        }
-      },
-      immediate: true,
-      deep: true
-    }
-  },
   data() {
     return {
-      expand: false,
-      dateTypeList: [{
-        label: '近三个月',
-        value: 1
-      }, {
-        label: '近半年',
-        value: 2
-      }, {
-        label: '近一年',
-        value: 3
-      }, {
-        label: '自定义',
-        value: 4
-      }],
-      configList: []
+      expand: false
     };
+  },
+  mounted() {
+    this.options.forEach(i => {
+      if (i.component === 'custom-time' && !i.dateType) {
+        this.$set(i, 'dateType', i.initDateType);
+      }
+    });
   },
   methods: {
     handleExpand() {
       this.expand = !this.expand;
     },
     handleSearch() {
-      this.configList.forEach(i => {
+      this.options.forEach(i => {
         // 支持空值搜索处理
         if (i.component === 'null-input' && i.nullType === 'yes') {
-          const obj = deepClone(this.value);
+          const obj = deepClone(this.formData);
           obj[i.key] = 'WeCube-empty-search';
           this.$emit('input', obj);
         }
       });
       this.$emit('search');
     },
+    handleInputChange: debounce(function () {
+      this.$emit('search');
+    }, 300),
     // 重置表单
     handleReset() {
-      const resetObj = {};
       Object.keys(this.formData).forEach(key => {
-        if (Array.isArray(this.formData[key])) {
-          resetObj[key] = [];
-        } else {
-          resetObj[key] = '';
-        }
-        this.configList.forEach(i => {
-          // 处理时间类型默认值
-          if (i.component === 'custom-time' && i.initValue) {
-            i.dateType = 1;
+        const formKeysArr = this.options.map(i => i.key);
+        if (formKeysArr.includes(key)) {
+          if (Array.isArray(this.formData[key])) {
+            this.formData[key] = [];
           } else {
-            i.dateType = 4;
+            this.formData[key] = '';
           }
-          // 处理空值搜索类型
-          if (i.component === 'null-input') {
-            i.nullType = 'no';
-          }
-        });
-        // 点击清空按钮需要给默认值的表单选项
-        const initOptions = this.configList.filter(i => i.initValue !== undefined);
-        initOptions.forEach(i => {
-          resetObj[i.key] = i.initValue;
-        });
+        }
       });
-      this.$emit('input', resetObj);
+      // 处理时间类型默认值
+      this.options.forEach(i => {
+        if (i.component === 'custom-time') {
+          this.$set(i, 'dateType', i.initDateType);
+          this.handleDateTypeChange(i.key, i.dateType, i.dateRange, false);
+        }
+        // 处理空值搜索类型
+        if (i.component === 'null-input') {
+          i.nullType = 'no';
+        }
+      });
+      // 清空表单需要初始化默认值
+      const initOptions = this.options.filter(i => i.initValue !== undefined);
+      initOptions.forEach(i => {
+        this.formData[i.key] = i.initValue;
+      });
+      this.$emit('input', this.formData);
       this.handleSearch();
     },
-    // 自定义时间控件转化时间格式值
-    handleDateTypeChange(key, dateType) {
+    /**
+     * 自定义时间控件转化时间格式值
+     * @params key
+     * @params dateType(1、2、3、4)按钮组key, 4代表自定义组
+     * @params dateRange 时间组集合
+      [
+        { label: '近一月', type: 'month', value: 1, dateType: 1 },
+        { label: '近半年', type: 'month', value: 6, dateType: 2 },
+        { label: '近一年', type: 'year', value: 1, dateType: 3 },
+        { label: this.$t('be_auto'), dateType: 4 }
+      ]
+     * @params remote 默认是否调用查询接口
+    */
+    handleDateTypeChange(key, dateType, dateRange, remote = true) {
       this.formData[key] = [];
-      const cur = dayjs_min_default()().format('YYYY-MM-DD');
-      if (dateType === 1) {
-        const pre = dayjs_min_default()().subtract(3, 'month').format('YYYY-MM-DD');
-        this.formData[key] = [pre, cur];
-      } else if (dateType === 2) {
-        const pre = dayjs_min_default()().subtract(6, 'month').format('YYYY-MM-DD');
-        this.formData[key] = [pre, cur];
-      } else if (dateType === 3) {
-        const pre = dayjs_min_default()().subtract(1, 'year').format('YYYY-MM-DD');
-        this.formData[key] = [pre, cur];
-      } else if (dateType === 4) {
+      if (dateType === 4) {
         this.formData[key] = [];
+      } else {
+        const {
+          type,
+          value
+        } = dateRange.find(i => i.dateType === dateType);
+        const cur = dayjs_min_default()().format('YYYY-MM-DD');
+        const pre = dayjs_min_default()().subtract(value, type).format('YYYY-MM-DD');
+        this.formData[key] = [pre, cur];
       }
       // 同步更新父组件form数据
-      this.$emit('input', this.formData);
+      if (remote) {
+        this.$emit('input', this.formData);
+        this.$emit('search');
+      }
     },
     handleDateRange(dateArr, key) {
-      this.formData[key] = [...dateArr];
+      if (dateArr && dateArr[0] && dateArr[1]) {
+        this.formData[key] = [...dateArr];
+      } else {
+        this.formData[key] = [];
+      }
       this.$emit('input', this.formData);
+      this.$emit('search');
     },
     // 获取远程下拉框数据
     async getRemoteData(i) {
@@ -2603,8 +2692,8 @@ const deepClone = obj => {
     },
     handleNullTypeChange(type, i) {
       // '正常模式'需要清除'空值模式'的默认值
-      if (type === 'no' && this.value[i.key] === 'WeCube-empty-search') {
-        const obj = deepClone(this.value);
+      if (type === 'no' && this.formData[i.key] === 'WeCube-empty-search') {
+        const obj = deepClone(this.formData);
         obj[i.key] = '';
         this.$emit('input', obj);
       }
@@ -2613,10 +2702,10 @@ const deepClone = obj => {
 });
 ;// CONCATENATED MODULE: ./src/common-ui/packages/Search/index.vue?vue&type=script&lang=js
  /* harmony default export */ var packages_Searchvue_type_script_lang_js = (Searchvue_type_script_lang_js); 
-;// CONCATENATED MODULE: ./node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-74.use[0]!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-74.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-74.use[2]!./node_modules/less-loader/dist/cjs.js??clonedRuleSet-74.use[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/common-ui/packages/Search/index.vue?vue&type=style&index=0&id=366dc988&prod&lang=less
+;// CONCATENATED MODULE: ./node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-74.use[0]!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-74.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-74.use[2]!./node_modules/less-loader/dist/cjs.js??clonedRuleSet-74.use[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/common-ui/packages/Search/index.vue?vue&type=style&index=0&id=9ba63a6a&prod&lang=less
 // extracted by mini-css-extract-plugin
 
-;// CONCATENATED MODULE: ./src/common-ui/packages/Search/index.vue?vue&type=style&index=0&id=366dc988&prod&lang=less
+;// CONCATENATED MODULE: ./src/common-ui/packages/Search/index.vue?vue&type=style&index=0&id=9ba63a6a&prod&lang=less
 
 ;// CONCATENATED MODULE: ./node_modules/@vue/vue-loader-v15/lib/runtime/componentNormalizer.js
 /* globals __VUE_SSR_CONTEXT__ */

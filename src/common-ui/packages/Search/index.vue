@@ -1,20 +1,22 @@
 <template>
-  <div class="taskman-base-search">
-    <div class="taskman-base-search-form" :style="{ maxHeight: expand ? '200px' : '45px' }">
+  <div class="common-base-search">
+    <div class="platform-base-search-form" :style="{maxHeight: expand ? '200px' : '40px'}">
       <Form :inline="true" :model="value" label-position="right">
-        <template v-for="(i, index) in configList">
+        <slot name="prepend"></slot>
+        <template v-for="(i, index) in options">
           <FormItem v-if="!i.hidden" :prop="i.key" :key="index">
-            <div style="display:flex;align-items:center;">
-              <span v-if="i.label">{{ i.label }}：</span>
+            <div style="display: flex; align-items: center">
               <!--输入框-->
+              <span v-if="i.label">{{ i.label }}：</span>
               <Input
                 v-if="i.component === 'input'"
                 v-model.trim="value[i.key]"
                 :placeholder="i.placeholder"
                 clearable
-                :style="{ width: i.width || 200 + 'px' }"
+                :style="{width: i.width || 195 + 'px'}"
+                @on-change="handleInputChange"
               ></Input>
-              <!--输入框(支持空值搜索)-->
+               <!--输入框(支持空值搜索)-->
               <div v-if="i.component === 'null-input'" class="null-input">
                 <Select
                   v-model="i.nullType"
@@ -22,8 +24,11 @@
                   style="width:90px;margin-right:-4px;"
                   @on-change="handleNullTypeChange($event, i)"
                 >
-                  <Option value="yes">{{ $t('tw_empty_search') }}</Option>
-                  <Option value="no">{{ $t('tw_normal_search') }}</Option>
+                  <!-- <Option value="yes">{{ $t('tw_empty_search') }}</Option>
+                  <Option value="no">{{ $t('tw_normal_search') }}</Option> -->
+                  <template v-for="(j, idx) in i.list">
+                    <Option :key="idx" :value="j.value">{{ j.label }}</Option>
+                  </template>
                 </Select>
                 <Input
                   v-if="i.nullType === 'no'"
@@ -43,7 +48,25 @@
                 :multiple="i.multiple || false"
                 :filterable="i.filterable || true"
                 :max-tag-count="1"
-                :style="{ width: i.width || 200 + 'px' }"
+                :style="{width: i.width || 200 + 'px'}"
+                @on-change="$emit('search')"
+              >
+                <template v-for="(j, idx) in i.list">
+                  <Option :key="idx" :value="j.value">{{ j.label }}</Option>
+                </template>
+              </Select>
+              <!--获取接口的下拉选择-->
+              <Select
+                v-else-if="i.component === 'remote-select'"
+                v-model="value[i.key]"
+                @on-open-change="getRemoteData(i)"
+                :placeholder="i.placeholder"
+                clearable
+                :multiple="i.multiple || false"
+                :filterable="i.filterable || true"
+                :max-tag-count="1"
+                :style="{width: i.width || 200 + 'px'}"
+                @on-change="$emit('search')"
               >
                 <template v-for="(j, idx) in i.list">
                   <Option :key="idx" :value="j.value">{{ j.label }}</Option>
@@ -58,7 +81,8 @@
                 :multiple="i.multiple || false"
                 :filterable="i.filterable || true"
                 :max-tag-count="1"
-                :style="{ width: i.width || 200 + 'px' }"
+                :style="{width: i.width || 200 + 'px'}"
+                @on-change="$emit('search')"
               >
                 <template v-for="(j, idx) in i.list">
                   <Option :key="idx" :value="j.value" :label="j.label">
@@ -76,28 +100,22 @@
                   </Option>
                 </template>
               </Select>
-              <!--获取接口的下拉选择-->
-              <Select
-                v-else-if="i.component === 'remote-select'"
+              <!--switch开关类型-->
+              <i-Switch
+                v-else-if="i.component === 'switch'"
                 v-model="value[i.key]"
-                @on-open-change="getRemoteData(i)"
-                :placeholder="i.placeholder"
-                clearable
-                :multiple="i.multiple || false"
-                :filterable="i.filterable || true"
-                :max-tag-count="1"
-                :style="{ width: i.width || 200 + 'px' }"
+                @on-change="$emit('search')"
+                style="margin-right: 5px"
               >
-                <template v-for="(j, idx) in i.list">
-                  <Option :key="idx" :value="j.value">{{ j.label }}</Option>
-                </template>
-              </Select>
+              </i-Switch>
               <!--标签组-->
               <RadioGroup
                 v-else-if="i.component === 'radio-group'"
                 v-model="value[i.key]"
-                @on-change="handleSearch"
-                style="margin-right:32px;"
+                @on-change="$emit('search')"
+                type="button"
+                button-style="solid"
+                style="margin-right: 5px"
               >
                 <Radio v-for="(j, idx) in i.list" :label="j.value" :key="idx" border>{{ j.label }}</Radio>
               </RadioGroup>
@@ -106,12 +124,12 @@
                 <RadioGroup
                   v-if="i.dateType !== 4"
                   v-model="i.dateType"
-                  @on-change="handleDateTypeChange(i.key, i.dateType)"
+                  @on-change="handleDateTypeChange(i.key, i.dateType, i.dateRange)"
                   type="button"
                   size="small"
-                  style="margin-top:-2px;"
+                  style="margin-top: -2px"
                 >
-                  <Radio v-for="(j, idx) in dateTypeList" :label="j.value" :key="idx" border>{{ j.label }}</Radio>
+                  <Radio v-for="(j, idx) in i.dateRange" :label="j.dateType" :key="idx" border>{{ j.label }}</Radio>
                 </RadioGroup>
                 <div v-else>
                   <DatePicker
@@ -122,6 +140,7 @@
                       }
                     "
                     type="daterange"
+                    split-panels
                     placement="bottom-end"
                     format="yyyy-MM-dd"
                     :placeholder="i.label"
@@ -129,11 +148,11 @@
                   />
                   <Icon
                     size="18"
-                    style="cursor:pointer;"
+                    style="cursor: pointer"
                     type="md-close-circle"
                     @click="
                       i.dateType = 1
-                      handleDateTypeChange(i.key, 1)
+                      handleDateTypeChange(i.key, 1, i.dateRange)
                     "
                   />
                 </div>
@@ -143,14 +162,14 @@
         </template>
       </Form>
     </div>
-    <div class="taskman-base-search-button">
+    <div v-if="showBtn" class="platform-base-search-button">
       <Icon
         v-show="!expand"
         @click="handleExpand"
         size="28"
         color="#2d8cf0"
         type="ios-arrow-down"
-        style="cursor:pointer;margin-right:10px;"
+        style="cursor: pointer; margin-right: 10px"
       />
       <Icon
         v-show="expand"
@@ -158,17 +177,17 @@
         size="28"
         color="#2d8cf0"
         type="ios-arrow-up"
-        style="cursor:pointer;margin-right:10px;"
+        style="cursor: pointer; margin-right: 10px"
       />
       <Button @click="handleSearch" size="small" type="primary">{{ $t('search') }}</Button>
-      <Button @click="handleReset" size="small" style="margin-left:5px;">{{ $t('reset') }}</Button>
+      <Button @click="handleReset" size="small" style="margin-left: 5px">{{ $t('reset') }}</Button>
     </div>
   </div>
 </template>
 
 <script>
 import dayjs from 'dayjs'
-import { deepClone } from '../../../util'
+import { debounce, deepClone } from '../../../util'
 export default {
   name: 'BaseSearch',
   props: {
@@ -179,119 +198,133 @@ export default {
     options: {
       type: Array,
       default: () => []
+    },
+    showExpand: {
+      type: Boolean,
+      default: true
+    },
+    showBtn: {
+      type: Boolean,
+      default: true
     }
   },
   computed: {
-    formData () {
+    formData() {
       return this.value
     }
   },
-  watch: {
-    options: {
-      handler (val) {
-        if (val && val.length) {
-          this.configList = val
-        }
-      },
-      immediate: true,
-      deep: true
+  data() {
+    return {
+      expand: false
     }
   },
-  data () {
-    return {
-      expand: false,
-      dateTypeList: [
-        { label: '近三个月', value: 1 },
-        { label: '近半年', value: 2 },
-        { label: '近一年', value: 3 },
-        { label: '自定义', value: 4 }
-      ],
-      configList: []
-    }
+  mounted() {
+    this.options.forEach(i => {
+      if (i.component === 'custom-time' && !i.dateType) {
+        this.$set(i, 'dateType', i.initDateType)
+      }
+    })
   },
   methods: {
-    handleExpand () {
+    handleExpand() {
       this.expand = !this.expand
     },
-    handleSearch () {
-      this.configList.forEach(i => {
+    handleSearch() {
+      this.options.forEach(i => {
         // 支持空值搜索处理
         if (i.component === 'null-input' && i.nullType === 'yes') {
-          const obj = deepClone(this.value)
+          const obj = deepClone(this.formData)
           obj[i.key] = 'WeCube-empty-search'
           this.$emit('input', obj)
         }
       })
       this.$emit('search')
     },
+    handleInputChange: debounce(function () {
+      this.$emit('search')
+    }, 300),
     // 重置表单
-    handleReset () {
-      const resetObj = {}
+    handleReset() {
       Object.keys(this.formData).forEach(key => {
-        if (Array.isArray(this.formData[key])) {
-          resetObj[key] = []
-        } else {
-          resetObj[key] = ''
+        const formKeysArr = this.options.map(i => i.key)
+        if (formKeysArr.includes(key)) {
+          if (Array.isArray(this.formData[key])) {
+            this.formData[key] = []
+          }
+          else {
+            this.formData[key] = ''
+          }
         }
-        this.configList.forEach(i => {
-          // 处理时间类型默认值
-          if (i.component === 'custom-time' && i.initValue) {
-            i.dateType = 1
-          } else {
-            i.dateType = 4
-          }
-          // 处理空值搜索类型
-          if (i.component === 'null-input') {
-            i.nullType = 'no'
-          }
-        })
-        // 点击清空按钮需要给默认值的表单选项
-        const initOptions = this.configList.filter(i => i.initValue !== undefined)
-        initOptions.forEach(i => {
-          resetObj[i.key] = i.initValue
-        })
       })
-      this.$emit('input', resetObj)
+      // 处理时间类型默认值
+      this.options.forEach(i => {
+        if (i.component === 'custom-time') {
+          this.$set(i, 'dateType', i.initDateType)
+          this.handleDateTypeChange(i.key, i.dateType, i.dateRange, false)
+        }
+        // 处理空值搜索类型
+        if (i.component === 'null-input') {
+          i.nullType = 'no'
+        }
+      })
+      // 清空表单需要初始化默认值
+      const initOptions = this.options.filter(i => i.initValue !== undefined)
+      initOptions.forEach(i => {
+        this.formData[i.key] = i.initValue
+      })
+      this.$emit('input', this.formData)
       this.handleSearch()
     },
-    // 自定义时间控件转化时间格式值
-    handleDateTypeChange (key, dateType) {
+    /**
+     * 自定义时间控件转化时间格式值
+     * @params key
+     * @params dateType(1、2、3、4)按钮组key, 4代表自定义组
+     * @params dateRange 时间组集合
+      [
+        { label: '近一月', type: 'month', value: 1, dateType: 1 },
+        { label: '近半年', type: 'month', value: 6, dateType: 2 },
+        { label: '近一年', type: 'year', value: 1, dateType: 3 },
+        { label: this.$t('be_auto'), dateType: 4 }
+      ]
+     * @params remote 默认是否调用查询接口
+    */
+    handleDateTypeChange(key, dateType, dateRange, remote = true) {
       this.formData[key] = []
-      const cur = dayjs().format('YYYY-MM-DD')
-      if (dateType === 1) {
-        const pre = dayjs()
-          .subtract(3, 'month')
-          .format('YYYY-MM-DD')
-        this.formData[key] = [pre, cur]
-      } else if (dateType === 2) {
-        const pre = dayjs()
-          .subtract(6, 'month')
-          .format('YYYY-MM-DD')
-        this.formData[key] = [pre, cur]
-      } else if (dateType === 3) {
-        const pre = dayjs()
-          .subtract(1, 'year')
-          .format('YYYY-MM-DD')
-        this.formData[key] = [pre, cur]
-      } else if (dateType === 4) {
+      if (dateType === 4) {
         this.formData[key] = []
       }
+      else {
+        const { type, value } = dateRange.find(i => i.dateType === dateType)
+        const cur = dayjs().format('YYYY-MM-DD')
+        const pre = dayjs().subtract(value, type)
+          .format('YYYY-MM-DD')
+        this.formData[key] = [pre, cur]
+      }
       // 同步更新父组件form数据
-      this.$emit('input', this.formData)
+      if (remote) {
+        this.$emit('input', this.formData)
+        this.$emit('search')
+      }
     },
-    handleDateRange (dateArr, key) {
-      this.formData[key] = [...dateArr]
+    handleDateRange(dateArr, key) {
+      if (dateArr && dateArr[0] && dateArr[1]) {
+        this.formData[key] = [...dateArr]
+      }
+      else {
+        this.formData[key] = []
+      }
       this.$emit('input', this.formData)
+      this.$emit('search')
     },
     // 获取远程下拉框数据
-    async getRemoteData (i) {
+    async getRemoteData(i) {
       const res = await i.remote()
       this.$set(i, 'list', res)
     },
     handleNullTypeChange (type, i) {
       // '正常模式'需要清除'空值模式'的默认值
-      if (type === 'no' && this.value[i.key] === 'WeCube-empty-search') {
-        const obj = deepClone(this.value)
+      if (type === 'no' && this.formData[i.key] === 'WeCube-empty-search') {
+        const obj = deepClone(this.formData)
         obj[i.key] = ''
         this.$emit('input', obj)
       }
@@ -301,10 +334,11 @@ export default {
 </script>
 
 <style lang="less">
-.taskman-base-search {
+.common-base-search {
+  width: 100%;
   display: flex;
   &-form {
-    width: calc(100% - 146px);
+    max-width: calc(100% - 146px);
     transition: all 0.2s;
     overflow: hidden;
     padding-right: 10px;
@@ -334,11 +368,11 @@ export default {
     height: 30px !important;
     line-height: 30px !important;
     font-size: 12px !important;
-    color: #000;
+    // color: #000;
   }
   .ivu-radio-wrapper-checked.ivu-radio-border {
-    border-color: #2d8cf0;
-    color: #2d8cf0;
+    background-color: #2d8cf0;
+    color: #fff;
   }
   .ivu-select-multiple .ivu-tag {
     max-width: 90px;
