@@ -14,6 +14,7 @@
 
 <script>
 export default {
+  name: 'BaseHeaderTitle',
   props: {
     title: {
       type: String,

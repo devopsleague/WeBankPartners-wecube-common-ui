@@ -41,6 +41,7 @@
 
 <script>
 export default {
+  name: 'BaseMenu',
   props: {
     menuList: Array
   },

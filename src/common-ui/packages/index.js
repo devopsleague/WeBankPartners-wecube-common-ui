@@ -4,7 +4,7 @@
 import BaseSearch from './Search' // 搜索组件
 import BaseScrollTag from './ScrollTag' // 区域可滚动组件
 import BaseMenu from './Menu' // 侧边栏组件
-import BaseHeaderTitle from './BaseHeaderTitle' // 标题组件
+import BaseHeaderTitle from './HeaderTitle' // 标题组件
 import './common.less'
 
 // 组件集合用于遍历
