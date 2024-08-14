@@ -1,6 +1,6 @@
 <template>
   <div class="common-base-search">
-    <div class="platform-base-search-form" :style="{maxHeight: expand ? '200px' : '40px'}">
+    <div class="common-base-search-form" :style="{maxHeight: expand ? '200px' : '40px'}">
       <Form :inline="true" :model="value" label-position="right">
         <slot name="prepend"></slot>
         <template v-for="(i, index) in options">
@@ -162,7 +162,7 @@
         </template>
       </Form>
     </div>
-    <div v-if="showBtn" class="platform-base-search-button">
+    <div v-if="showBtn" class="common-base-search-button">
       <Icon
         v-show="!expand"
         @click="handleExpand"

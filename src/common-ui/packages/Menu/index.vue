@@ -7,8 +7,8 @@
     }"
   >
     <div v-show="expand" style="height:100%;">
-      <div class="home">
-        <slot name="top"></slot>
+      <div class="home" v-if="$slots.header">
+        <slot name="header"></slot>
       </div>
       <Menu
         @on-select="handleSelectMenu"
@@ -105,7 +105,7 @@ export default {
 </script>
 
 <style lang="less">
-.workbench-menu {
+.common-ui-menu {
   .ivu-menu-dark {
     background: #001529;
   }
