@@ -3337,6 +3337,67 @@ Drawer.install = function (Vue) {
   Vue.component(Drawer.name, Drawer);
 };
 /* harmony default export */ var packages_Drawer = (Drawer);
+;// CONCATENATED MODULE: ./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/common-ui/packages/Ellipsis/index.vue?vue&type=template&id=2ea0fce2
+var Ellipsisvue_type_template_id_2ea0fce2_render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "common-ui-ellipsis"
+  }, [_c('Tooltip', {
+    attrs: {
+      "max-width": "300",
+      "content": _vm.content
+    }
+  }, [_c('span', {
+    staticStyle: {
+      "overflow": "hidden",
+      "text-overflow": "ellipsis",
+      "display": "-webkit-box",
+      "-webkit-line-clamp": "3",
+      "-webkit-box-orient": "vertical"
+    }
+  }, [_vm._v(" {content || '-'} ")])])], 1);
+};
+var Ellipsisvue_type_template_id_2ea0fce2_staticRenderFns = [];
+
+;// CONCATENATED MODULE: ./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/common-ui/packages/Ellipsis/index.vue?vue&type=script&lang=js
+/* harmony default export */ var Ellipsisvue_type_script_lang_js = ({
+  name: 'BaseEllipsis',
+  props: {
+    content: {
+      type: String,
+      default: ''
+    }
+  }
+});
+;// CONCATENATED MODULE: ./src/common-ui/packages/Ellipsis/index.vue?vue&type=script&lang=js
+ /* harmony default export */ var packages_Ellipsisvue_type_script_lang_js = (Ellipsisvue_type_script_lang_js); 
+;// CONCATENATED MODULE: ./src/common-ui/packages/Ellipsis/index.vue
+
+
+
+
+
+/* normalize component */
+;
+var Ellipsis_component = normalizeComponent(
+  packages_Ellipsisvue_type_script_lang_js,
+  Ellipsisvue_type_template_id_2ea0fce2_render,
+  Ellipsisvue_type_template_id_2ea0fce2_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* harmony default export */ var Ellipsis = (Ellipsis_component.exports);
+;// CONCATENATED MODULE: ./src/common-ui/packages/Ellipsis/index.js
+
+Ellipsis.install = function (Vue) {
+  Vue.component(Ellipsis.name, Ellipsis);
+};
+/* harmony default export */ var packages_Ellipsis = (Ellipsis);
 ;// CONCATENATED MODULE: ./src/common-ui/packages/index.js
 /**
  * 统一导出组件
@@ -3346,11 +3407,12 @@ Drawer.install = function (Vue) {
  // 侧边栏组件
  // 标题组件
  // 抽屉组件
+ // 文本省略组件
 
 
 
 // 组件集合用于遍历
-const components = [packages_Search, packages_ScrollTag, packages_Menu, packages_HeaderTitle, packages_Drawer];
+const components = [packages_Search, packages_ScrollTag, packages_Menu, packages_HeaderTitle, packages_Drawer, packages_Ellipsis];
 
 // 定义install方法
 const install = function (Vue) {
@@ -3369,7 +3431,8 @@ if (typeof window !== "undefined" && window.Vue) {
   BaseScrollTag: packages_ScrollTag,
   BaseMenu: packages_Menu,
   BaseHeaderTitle: packages_HeaderTitle,
-  BaseDrawer: packages_Drawer
+  BaseDrawer: packages_Drawer,
+  BaseEllipsis: packages_Ellipsis
 });
 ;// CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/entry-lib.js
 

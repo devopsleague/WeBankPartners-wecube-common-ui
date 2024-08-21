@@ -6,11 +6,12 @@ import BaseScrollTag from './ScrollTag' // 区域可滚动组件
 import BaseMenu from './Menu' // 侧边栏组件
 import BaseHeaderTitle from './HeaderTitle' // 标题组件
 import BaseDrawer from './Drawer' // 抽屉组件
+import BaseEllipsis from './Ellipsis' // 文本省略组件
 import './common.less'
 import './bootstarp.css'
 
 // 组件集合用于遍历
-const components = [BaseSearch, BaseScrollTag, BaseMenu, BaseHeaderTitle, BaseDrawer]
+const components = [BaseSearch, BaseScrollTag, BaseMenu, BaseHeaderTitle, BaseDrawer, BaseEllipsis]
 
 // 定义install方法
 const install = function (Vue) {
@@ -30,5 +31,6 @@ export default {
   BaseScrollTag,
   BaseMenu,
   BaseHeaderTitle,
-  BaseDrawer
+  BaseDrawer,
+  BaseEllipsis
 }
