@@ -3337,8 +3337,8 @@ Drawer.install = function (Vue) {
   Vue.component(Drawer.name, Drawer);
 };
 /* harmony default export */ var packages_Drawer = (Drawer);
-;// CONCATENATED MODULE: ./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/common-ui/packages/Ellipsis/index.vue?vue&type=template&id=2ea0fce2
-var Ellipsisvue_type_template_id_2ea0fce2_render = function render() {
+;// CONCATENATED MODULE: ./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/common-ui/packages/Ellipsis/index.vue?vue&type=template&id=5f350643&scoped=true
+var Ellipsisvue_type_template_id_5f350643_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -3348,17 +3348,14 @@ var Ellipsisvue_type_template_id_2ea0fce2_render = function render() {
       "max-width": "300",
       "content": _vm.content
     }
-  }, [_c('span', {
-    staticStyle: {
-      "overflow": "hidden",
-      "text-overflow": "ellipsis",
-      "display": "-webkit-box",
-      "-webkit-line-clamp": "3",
-      "-webkit-box-orient": "vertical"
+  }, [_c('div', {
+    staticClass: "ellipsis",
+    domProps: {
+      "innerHTML": _vm._s(_vm.content || '-')
     }
-  }, [_vm._v(" {content || '-'} ")])])], 1);
+  })])], 1);
 };
-var Ellipsisvue_type_template_id_2ea0fce2_staticRenderFns = [];
+var Ellipsisvue_type_template_id_5f350643_scoped_true_staticRenderFns = [];
 
 ;// CONCATENATED MODULE: ./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/common-ui/packages/Ellipsis/index.vue?vue&type=script&lang=js
 /* harmony default export */ var Ellipsisvue_type_script_lang_js = ({
@@ -3372,21 +3369,27 @@ var Ellipsisvue_type_template_id_2ea0fce2_staticRenderFns = [];
 });
 ;// CONCATENATED MODULE: ./src/common-ui/packages/Ellipsis/index.vue?vue&type=script&lang=js
  /* harmony default export */ var packages_Ellipsisvue_type_script_lang_js = (Ellipsisvue_type_script_lang_js); 
+;// CONCATENATED MODULE: ./node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-74.use[0]!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-74.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-74.use[2]!./node_modules/less-loader/dist/cjs.js??clonedRuleSet-74.use[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/common-ui/packages/Ellipsis/index.vue?vue&type=style&index=0&id=5f350643&prod&lang=less&scoped=true
+// extracted by mini-css-extract-plugin
+
+;// CONCATENATED MODULE: ./src/common-ui/packages/Ellipsis/index.vue?vue&type=style&index=0&id=5f350643&prod&lang=less&scoped=true
+
 ;// CONCATENATED MODULE: ./src/common-ui/packages/Ellipsis/index.vue
 
 
 
+;
 
 
 /* normalize component */
-;
+
 var Ellipsis_component = normalizeComponent(
   packages_Ellipsisvue_type_script_lang_js,
-  Ellipsisvue_type_template_id_2ea0fce2_render,
-  Ellipsisvue_type_template_id_2ea0fce2_staticRenderFns,
+  Ellipsisvue_type_template_id_5f350643_scoped_true_render,
+  Ellipsisvue_type_template_id_5f350643_scoped_true_staticRenderFns,
   false,
   null,
-  null,
+  "5f350643",
   null
   
 )

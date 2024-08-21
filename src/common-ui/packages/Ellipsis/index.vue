@@ -1,9 +1,8 @@
 <template>
   <div class="common-ui-ellipsis">
     <Tooltip max-width="300" :content="content">
-      <span style="overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;">
-        {content || '-'}
-      </span>
+      <div v-html="content || '-'" class="ellipsis">
+      </div>
     </Tooltip>
   </div>
 </template>
@@ -19,3 +18,12 @@ export default {
   }
 }
 </script>
+<style lang="less" scoped>
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+</style>
