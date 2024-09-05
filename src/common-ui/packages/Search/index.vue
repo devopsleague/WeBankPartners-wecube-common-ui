@@ -162,7 +162,7 @@
         </template>
       </Form>
     </div>
-    <div v-if="showBtn" class="common-base-search-button">
+    <div v-if="showBtn && !onlyShowReset" class="common-base-search-button">
       <Icon
         v-show="!expand"
         @click="handleExpand"
@@ -180,6 +180,9 @@
         style="cursor: pointer; margin-right: 10px"
       />
       <Button @click="handleSearch" size="small" type="primary">{{ $t('search') }}</Button>
+      <Button @click="handleReset" size="small" style="margin-left: 5px">{{ $t('reset') }}</Button>
+    </div>
+    <div v-if="onlyShowReset" class="common-base-search-button">
       <Button @click="handleReset" size="small" style="margin-left: 5px">{{ $t('reset') }}</Button>
     </div>
   </div>
@@ -206,6 +209,10 @@ export default {
     showBtn: {
       type: Boolean,
       default: true
+    },
+    onlyShowReset: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {

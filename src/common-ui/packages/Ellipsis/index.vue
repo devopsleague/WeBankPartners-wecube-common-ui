@@ -1,9 +1,13 @@
 <template>
   <div class="common-ui-ellipsis">
-    <Tooltip max-width="300" :content="content">
-      <div v-html="content || '-'" class="ellipsis">
+    <Tooltip v-if="content" max-width="300" :content="content" :transfer="true">
+      <div slot="content" v-html="content"></div>
+      <div v-html="content" class="ellipsis">
       </div>
     </Tooltip>
+    <div v-else class="ellipsis">
+      {{ '-' }}
+    </div>
   </div>
 </template>
 
