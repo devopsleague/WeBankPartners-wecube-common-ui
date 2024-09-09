@@ -1,11 +1,11 @@
 <template>
   <div class="common-base-search">
     <div class="common-base-search-form" :style="{maxHeight: expand ? '200px' : '40px'}">
-      <Form :inline="true" :model="value" label-position="right">
+      <Form :inline="true" :model="value" label-position="right" ref="form">
         <slot name="prepend"></slot>
         <template v-for="(i, index) in options">
           <FormItem v-if="!i.hidden" :prop="i.key" :key="index">
-            <div style="display: flex; align-items: center">
+            <div style="display: flex; align-items: center" :class="i.key">
               <!--输入框-->
               <span v-if="i.label">{{ i.label }}：</span>
               <Input
@@ -231,6 +231,17 @@ export default {
         this.$set(i, 'dateType', i.initDateType)
       }
     })
+    // 有默认值的表单被隐藏时，默认展开
+    this.$nextTick(() => {
+      const formTop = this.$refs.form.$el.getBoundingClientRect().top || 0
+      const formHeight = document.getElementsByClassName('common-base-search-form')[0].offsetHeight
+      this.options.forEach(i => {
+        const formItemTop = document.getElementsByClassName(i.key)[0].getBoundingClientRect().top || 0
+        if (formItemTop - formTop > formHeight && this.formData[i.key]) {
+          this.expand = true
+        }
+      })
+    })
   },
   methods: {
     handleExpand() {
@@ -340,7 +351,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .common-base-search {
   width: 100%;
   display: flex;
@@ -364,24 +375,24 @@ export default {
       font-size: 13px;
     }
   }
-  .ivu-form-item {
+  /deep/ .ivu-form-item {
     margin-bottom: 15px !important;
     display: inline-block !important;
   }
-  .ivu-radio {
+  /deep/ .ivu-radio {
     display: none;
   }
-  .ivu-radio-wrapper {
+  /deep/ .ivu-radio-wrapper {
     height: 30px !important;
     line-height: 30px !important;
     font-size: 12px !important;
     // color: #000;
   }
-  .ivu-radio-wrapper-checked.ivu-radio-border {
+  /deep/ .ivu-radio-wrapper-checked.ivu-radio-border {
     background-color: #2d8cf0;
     color: #fff;
   }
-  .ivu-select-multiple .ivu-tag {
+  /deep/ .ivu-select-multiple .ivu-tag {
     max-width: 90px;
   }
 }

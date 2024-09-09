@@ -4,7 +4,7 @@
       :title="title"
       v-model="drawerVisible"
       :width="realWidth"
-      :mask-closable="true"
+      :mask-closable="maskClosable"
       :scrollable="scrollable"
       :lock-scroll="true"
       @on-close="handleCancel"
@@ -39,6 +39,10 @@ export default {
     scrollable: {
       type: Boolean,
       default: false
+    },
+    maskClosable: {
+      type: Boolean,
+      default: true
     }
   },
   computed: {

@@ -1,9 +1,11 @@
 <template>
   <div class="common-ui-header-title">
     <div class="w-header">
-      <Icon v-if="expand" size="26" type="md-arrow-dropdown" @click="handleExpand" style="cursor:pointer" />
-      <Icon v-else size="26" type="md-arrow-dropright" @click="handleExpand" style="cursor:pointer" />
-      <div class="title">{{ title }}<span class="underline"></span></div>
+      <template v-if="showExpand">
+        <Icon v-if="expand" size="26" type="md-arrow-dropdown" @click="handleExpand" style="cursor:pointer" />
+        <Icon v-else size="26" type="md-arrow-dropright" @click="handleExpand" style="cursor:pointer" />
+      </template>
+      <div class="title" :style="{fontSize: fontSize + 'px'}">{{ title }}<span class="underline"></span></div>
       <slot name="sub-title"></slot>
     </div>
     <div v-show="expand" class="content">
@@ -23,6 +25,15 @@ export default {
     subTitle: {
       type: String,
       default: ''
+    },
+    fontSize: {
+      type: Number,
+      default: 16
+    },
+    // 是否展示展开按钮
+    showExpand: {
+      type: Boolean,
+      default: true
     }
   },
   data () {
@@ -44,7 +55,6 @@ export default {
     display: flex;
     align-items: center;
     .title {
-      font-size: 16px;
       font-weight: bold;
       color: #515a6e;
       margin: 0 6px;

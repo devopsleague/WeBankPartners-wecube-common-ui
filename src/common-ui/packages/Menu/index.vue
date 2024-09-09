@@ -104,23 +104,23 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .common-ui-menu {
-  .ivu-menu-dark {
+  /deep/ .ivu-menu-dark {
     background: #001529;
   }
-  .ivu-menu-dark.ivu-menu-vertical .ivu-menu-opened .ivu-menu-submenu-title {
+  /deep/ .ivu-menu-dark.ivu-menu-vertical .ivu-menu-opened .ivu-menu-submenu-title {
     background: #10192b;
   }
-  .ivu-menu-dark.ivu-menu-vertical .ivu-menu-item,
-  .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title {
+  /deep/ .ivu-menu-dark.ivu-menu-vertical .ivu-menu-item,
+  /deep/ .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title {
     background: #10192b;
     padding: 10px;
     i {
       margin-right: 0px;
     }
   }
-  .ivu-menu-item {
+  /deep/ .ivu-menu-item {
     padding-left: 32px !important;
   }
 }
