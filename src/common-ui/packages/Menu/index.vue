@@ -53,6 +53,17 @@ export default {
       openNames: []
     }
   },
+  watch: {
+    $route (to, from) {
+      this.menuList.forEach(i => {
+        for (const j of i.children) {
+          if (j.path === this.$route.path) {
+            this.activeName = j.name
+          }
+        }
+      })
+    }
+  },
   created() {
     this.menuList.forEach(i => {
       for (const j of i.children) {

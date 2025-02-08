@@ -9,6 +9,7 @@ import BaseDrawer from './Drawer' // 抽屉组件
 import BaseEllipsis from './Ellipsis' // 文本省略组件
 import './common.less'
 import './bootstarp.css'
+import '../../util/index.js'
 
 // 组件集合用于遍历
 const components = [BaseSearch, BaseScrollTag, BaseMenu, BaseHeaderTitle, BaseDrawer, BaseEllipsis]

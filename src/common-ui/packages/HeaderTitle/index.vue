@@ -5,10 +5,10 @@
         <Icon v-if="expand" size="26" type="md-arrow-dropdown" @click="handleExpand" style="cursor:pointer" />
         <Icon v-else size="26" type="md-arrow-dropright" @click="handleExpand" style="cursor:pointer" />
       </template>
-      <div class="title" :style="{fontSize: fontSize + 'px'}">{{ title }}<span class="underline"></span></div>
+      <div class="w-header-title" :style="{fontSize: fontSize + 'px'}">{{ title }}<span class="underline"></span></div>
       <slot name="sub-title"></slot>
     </div>
-    <div v-show="expand" class="content">
+    <div v-show="expand" class="w-content">
       <slot></slot>
     </div>
   </div>
@@ -34,12 +34,20 @@ export default {
     showExpand: {
       type: Boolean,
       default: true
+    },
+    // 是否默认展开
+    defaultExpand: {
+      type: Boolean,
+      default: true
     }
   },
   data () {
     return {
       expand: true
     }
+  },
+  mounted () {
+    this.expand = this.defaultExpand
   },
   methods: {
     handleExpand () {
@@ -51,13 +59,15 @@ export default {
 
 <style lang="less" scoped>
 .common-ui-header-title {
+  padding-bottom: 3px;
   .w-header {
     display: flex;
     align-items: center;
-    .title {
+    &-title {
       font-weight: bold;
       color: #515a6e;
       margin: 0 6px;
+      white-space: nowrap;
       .underline {
         display: block;
         margin-top: -12px;
@@ -71,7 +81,7 @@ export default {
       }
     }
   }
-  .content {
+  .w-content {
     padding: 20px 10px;
   }
 }
