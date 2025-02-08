@@ -167,7 +167,7 @@
         v-show="!expand"
         @click="handleExpand"
         size="28"
-        color="#2d8cf0"
+        color="#5384ff"
         type="ios-arrow-down"
         style="cursor: pointer; margin-right: 10px"
       />
@@ -175,7 +175,7 @@
         v-show="expand"
         @click="handleExpand"
         size="28"
-        color="#2d8cf0"
+        color="#5384ff"
         type="ios-arrow-up"
         style="cursor: pointer; margin-right: 10px"
       />
@@ -394,7 +394,7 @@ export default {
     // color: #000;
   }
   /deep/ .ivu-radio-wrapper-checked.ivu-radio-border {
-    background-color: #2d8cf0;
+    background-color: #5384ff;
     color: #fff;
   }
   /deep/ .ivu-select-multiple .ivu-tag {
