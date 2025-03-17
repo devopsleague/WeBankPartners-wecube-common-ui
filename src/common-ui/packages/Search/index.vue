@@ -127,7 +127,6 @@
                   @on-change="handleDateTypeChange(i.key, i.dateType, i.dateRange)"
                   type="button"
                   size="small"
-                  style="margin-top: -2px"
                 >
                   <Radio v-for="(j, idx) in i.dateRange" :label="j.dateType" :key="idx" border>{{ j.label }}</Radio>
                 </RadioGroup>
