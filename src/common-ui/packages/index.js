@@ -7,8 +7,9 @@ import BaseMenu from './Menu' // 侧边栏组件
 import BaseHeaderTitle from './HeaderTitle' // 标题组件
 import BaseDrawer from './Drawer' // 抽屉组件
 import BaseEllipsis from './Ellipsis' // 文本省略组件
-import './common.less'
+import './common.less' // 全局公共样式
 import './bootstarp.css'
+// import './styles/index.less' // iview样式覆盖
 import '../../util/index.js'
 
 // 组件集合用于遍历

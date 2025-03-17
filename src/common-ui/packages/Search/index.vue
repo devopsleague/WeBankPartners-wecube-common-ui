@@ -255,11 +255,6 @@ export default {
           obj[i.key] = 'WeCube-empty-search'
           this.$emit('input', obj)
         }
-        // 每次点击搜索时获取最新时间，避免页面长时间停留造成时间有缓存
-        if (i.component === 'custom-time') {
-          this.handleDateTypeChange(i.key, i.dateType, i.dateRange, false)
-          this.$emit('input', this.formData)
-        }
       })
       this.$emit('search')
     },
